@@ -52,7 +52,7 @@ config :phoenix, :stacktrace_depth, 20
 config :stock_game, StockGame.Repo,
   adapter: Ecto.Adapters.Postgres,
   username: "stock_game",
-  password: "Gei5waetha",
+  password: "devel",
   database: "stockGame_dev",
   hostname: "localhost",
   pool_size: 10

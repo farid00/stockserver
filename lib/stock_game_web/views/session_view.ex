@@ -1,17 +1,13 @@
-defmodule StockGameWeb.UserView do
+defmodule StockGameWeb.SessionView do
   use StockGameWeb, :view
-  alias StockGameWeb.UserView
+  alias StockGameWeb.SessionView
   alias StockGameWeb.StockController
 
-  def render("index.json", %{users: users}) do
-    %{data: render_many(users, UserView, "user.json")}
+  def render("show.json", %{session: user}) do
+    %{data: render_one(user, SessionView, "session.json")}
   end
 
-  def render("show.json", %{user: user}) do
-    %{data: render_one(user, UserView, "user.json")}
-  end
-
-  def render("user.json", %{user: user}) do
+  def render("session.json", %{session: user}) do
     if user.stocks do
       stocks = Enum.map(user.stocks, fn stock -> msg = "https://api.polygon.io/v1/last/stocks/" <> stock <> "?apiKey=dHES5_4lab1dePZE1H60TFzlP3lMq_YJ_uiPbC"
       resp = HTTPoison.get!(msg)

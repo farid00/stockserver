@@ -15,7 +15,8 @@ defmodule StockGameWeb.LiveChannel do
     msg = "https://api.polygon.io/v1/last/stocks/" <> payload <> "?apiKey=dHES5_4lab1dePZE1H60TFzlP3lMq_YJ_uiPbC"
     resp = HTTPoison.get!(msg)
     price = Poison.decode!(resp.body)["last"]["price"]
-    {:reply, {:ok, %{name: payload, price: price}}, socket}
+    push socket, "new_msg", %{name: payload, price: price}
+    {:noreply, socket}
   end
 
   # It is also common to receive messages from the client and

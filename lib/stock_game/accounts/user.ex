@@ -8,6 +8,7 @@ defmodule StockGame.Accounts.User do
     field :money, :decimal
     field :username, :string
     field :stocks, {:array, :string}
+    field :password, :string, virtual: true
     field :password_hash, :string
 
     timestamps()
@@ -16,9 +17,8 @@ defmodule StockGame.Accounts.User do
   @doc false
   def changeset(%User{} = user, attrs) do
     user
-    |> cast(attrs, [:username, :password_hash])
-    |> validate_confirmation(:password_hash)
-    |> validate_password(:password_hash)
+    |> cast(attrs, [:username, :password])
+    |> validate_password(:password)
     |> put_pass_hash()
     |> validate_required([:username, :password_hash])
   end

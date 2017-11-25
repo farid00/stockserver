@@ -11,6 +11,7 @@ defmodule StockGameWeb.Router do
 
   pipeline :api do
     plug :accepts, ["json"]
+    plug :fetch_session
   end
 
   scope "/", StockGameWeb do
@@ -24,6 +25,7 @@ defmodule StockGameWeb.Router do
     pipe_through :api
     resources "/users", UserController, except: [:new, :edit]
     resources "/stocks", StockController, except: [:new, :edit]
+    post "/sessions", SessionController, :login
     #resources "/", 
   end
 end
